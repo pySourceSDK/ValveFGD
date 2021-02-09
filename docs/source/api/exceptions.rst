@@ -1,14 +1,14 @@
 Exceptions
 ==========
 
-.. autoclass:: fgdtools.EntityNotFound
+.. autoclass:: valvefgd.EntityNotFound
 
-.. autoclass:: fgdtools.PropertyNotFound
+.. autoclass:: valvefgd.PropertyNotFound
 
-.. autoclass:: fgdtools.SpawnflagNotFound
+.. autoclass:: valvefgd.SpawnflagNotFound
 
-.. autoclass:: fgdtools.InputNotFound
+.. autoclass:: valvefgd.InputNotFound
 
-.. autoclass:: fgdtools.OutputNotFound
+.. autoclass:: valvefgd.OutputNotFound
 
-.. autoclass:: fgdtools.ChoiceNotFound
+.. autoclass:: valvefgd.ChoiceNotFound

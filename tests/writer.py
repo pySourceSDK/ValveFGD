@@ -2,7 +2,7 @@ import shutil
 import tempfile
 import os
 import unittest
-from fgdtools import FgdParse, FgdWrite
+from valvefgd import FgdParse, FgdWrite
 
 
 class WriteTestCase(unittest.TestCase):

@@ -35,7 +35,7 @@ class Fgd(object):
 
     @property
     def includes(self):
-        """A list of included :class:`fgdtools.Fgd`,
+        """A list of included :class:`valvefgd.Fgd`,
         including inherited includes from @includes."""
 
         parent_includes = [i.includes for i in self._includes]
@@ -44,7 +44,7 @@ class Fgd(object):
 
     @property
     def entities(self):
-        """A list containing all :class:`fgdtools.FgdEntity`,
+        """A list containing all :class:`valvefgd.FgdEntity`,
         including inherited entities from @includes."""
 
         parent_entities = [i.entities for i in self._includes]
@@ -53,7 +53,7 @@ class Fgd(object):
 
     @property
     def editor_data(self):
-        """A list containing all :class:`fgdtools.FgdEditorData`,
+        """A list containing all :class:`valvefgd.FgdEditorData`,
         including inherited data from @includes."""
 
         parent_data = [i.editor_data for i in self._includes]
@@ -61,7 +61,7 @@ class Fgd(object):
         return parent_data + self._editor_data
 
     def add_include(self, parent_fgd):
-        """Adds a parent :class:`fgdtools.Fgd` to supplement this one.
+        """Adds a parent :class:`valvefgd.Fgd` to supplement this one.
 
         :param parent_fgd: The Fgd object to be added as a parent.
         :type parent_fgd: Fgd

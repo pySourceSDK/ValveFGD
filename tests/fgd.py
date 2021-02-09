@@ -1,5 +1,5 @@
 import unittest
-from fgdtools.fgd import *
+from valvefgd.fgd import *
 from faker import Faker
 from faker.providers import BaseProvider
 

@@ -1,5 +1,5 @@
 sphinx-autobuild \
-    -z ../fgdtools \
+    -z ../valvefgd \
     --ignore "*~" \
     --ignore "*/#*#*" \
     --ignore "*.#*" \

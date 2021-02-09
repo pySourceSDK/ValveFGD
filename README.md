@@ -1,22 +1,22 @@
-[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/maxdup/fgd-tools/blob/master/LICENSE.txt)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/fgdtools.svg)](https://pypi.python.org/pypi/fgdtools/)
-[![PyPI version fury.io](https://badge.fury.io/py/fgdtools.svg)](https://pypi.python.org/pypi/fgdtools/)
-[![alt text](https://github.com/maxdup/fgd-tools/blob/master/docs/source/coverage.svg "coverage")]()
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://github.com/pySourceSDK/ValveFGD/blob/master/LICENSE.txt)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/valvefgd.svg)](https://pypi.python.org/pypi/valvefgd/)
+[![PyPI version fury.io](https://badge.fury.io/py/valvefgd.svg)](https://pypi.python.org/pypi/valvefgd/)
+[![alt text](https://github.com/pySourceSDK/ValveFGD/blob/master/docs/source/coverage.svg "coverage")]()
 
-# Fgd-tools
+# ValveFGD
 
-Fgd-tools is a Python library for parsing .fgd files for the Source Engine level editor Hammer. It provides entity schemas and other level editor configuration information.
+ValveFGD is a Python library for parsing .fgd files for the Source Engine level editor Hammer. It provides entity schemas and other level editor configuration information.
 
-Full documentation: https://maxdup.github.io/fgd-tools/
+Full documentation: https://pysourcesdk.github.io/ValveFGD/
 
 ## Installation
 
 ### PyPI
 
-Fgd-tools is available on the Python Package Index. This makes installing it with pip as easy as:
+ValveFGD is available on the Python Package Index. This makes installing it with pip as easy as:
 
 ```bash
-pip3 install fgdtools
+pip3 install valvefgd
 ```
 
 ### Git
@@ -26,7 +26,7 @@ If you want the latest code or even feel like contributing, the code is availabl
 You can easily clone the code with git:
 
 ```bash
-git clone git://github.com/maxdup/fgd-tools.git
+git clone git@github.com:pySourceSDK/ValveFGD.git
 ```
 
 and install it with:
@@ -37,14 +37,14 @@ python3 setup.py install
 
 ## Usage
 
-Here's a few example usage of fgd-tools
+Here's a few example usage of valvefgd
 
 ### Parsing
 
 You can get a Fgd object by parsing an .fgd file using FgdParse
 
 ```python
->>> from fgdtools import FgdParse
+>>> from valvefgd import FgdParse
 >>> fgd = FgdParse('C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/bin/tf.fgd')
 ```
 
@@ -56,7 +56,7 @@ You can write an .fgd file from a Fgd object.
 > Parsing/writing is destructive. Comments will be lost. The original structure of the file may be altered. The actual data about entities and the inheritance hierarchy is untouched however.
 
 ```python
->>> from fgdtools import FgdWrite
+>>> from valvefgd import FgdWrite
 >>> FgdWrite(fgd, 'tf-clone.fgd')
 ```
 
@@ -77,17 +77,17 @@ You can get entity schematics from an Fgd object.
 Here are some color coded charts for the terminology used in this library for fgd files.
 
 ### FgdEntity
-![alt text](https://github.com/maxdup/fgd-tools/raw/master/docs/source/_static/fgdentity.jpg "FgdEntity terminology")
+![alt text](https://github.com/pySourceSDK/ValveFGD/raw/master/docs/source/_static/fgdentity.jpg "FgdEntity terminology")
 
 ### FgdEntityInput/Output
-![alt text](https://github.com/maxdup/fgd-tools/raw/master/docs/source/_static/fgdentityio.jpg "FgdEntityInput/Output terminology")
+![alt text](https://github.com/pySourceSDK/ValveFGD/raw/master/docs/source/_static/fgdentityio.jpg "FgdEntityInput/Output terminology")
 
 ### FgdEntityProperty
-![alt text](https://github.com/maxdup/fgd-tools/raw/master/docs/source/_static/fgdentityproperty.jpg "FgdEntityProperty terminology")
+![alt text](https://github.com/pySourceSDK/ValveFGD/raw/master/docs/source/_static/fgdentityproperty.jpg "FgdEntityProperty terminology")
 
 ### FgdEntityPropertyOption
-![alt text](https://github.com/maxdup/fgd-tools/raw/master/docs/source/_static/fgdentitypropertyoption.jpg "FgdEntityPropertyOption terminology")
+![alt text](https://github.com/pySourceSDK/ValveFGD/raw/master/docs/source/_static/fgdentitypropertyoption.jpg "FgdEntityPropertyOption terminology")
 
 ### FgdEntitySpawnflag
-![alt text](https://github.com/maxdup/fgd-tools/raw/master/docs/source/_static/fgdentityspawnflags.jpg "FgdEntitySpawnflag terminology")
+![alt text](https://github.com/pySourceSDK/ValveFGD/raw/master/docs/source/_static/fgdentityspawnflags.jpg "FgdEntitySpawnflag terminology")
 

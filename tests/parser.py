@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from fgdtools import *
+from valvefgd import *
 
 
 class ParseTestCase(unittest.TestCase):

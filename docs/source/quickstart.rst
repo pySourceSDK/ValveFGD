@@ -8,11 +8,11 @@ Installation
 
 PyPI
 ~~~~
-Fgd-tools is available on the Python Package Index. This makes installing it with pip as easy as:
+ValveFGD is available on the Python Package Index. This makes installing it with pip as easy as:
 
 .. code-block:: bash
 
-   pip3 install fgdtools
+   pip3 install valvefgd
 
 Git
 ~~~
@@ -23,9 +23,9 @@ You can easily clone the code with git:
 
 .. code-block:: bash
 
-   git clone git://github.com/maxdup/fgd-tools.git
+   git clone git://github.com/pySourceSDK/ValveFGD.git
 
-and install it with:
+and install it from the repo directory with:
 
 .. code-block:: bash
 
@@ -34,7 +34,7 @@ and install it with:
 Usage
 -----
 
-Here's a few example usage of fgd-tools
+Here's a few example usage of ValveFGD
 
 Parsing
 ~~~~~~~
@@ -43,7 +43,7 @@ You can get a Fgd object by parsing an .fgd file using FgdParse
 
 .. code-block:: python
 
-   > from fgdtools import FgdParse
+   > from valvefgd import FgdParse
 
    > fgd = FgdParse('C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/bin/tf.fgd')
 
@@ -57,7 +57,7 @@ You can write an .fgd file from a Fgd object. It will write the fgd as it was pa
 
 .. code-block:: python
 
-   > from fgdtools import FgdWrite
+   > from valvefgd import FgdWrite
 
    > FgdWrite(fgd, 'tf-clone.fgd')
    > FgdWrite(fgd, 'tf-clone.fgd', collapse=True)
