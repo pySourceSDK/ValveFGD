@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Fgd &#8212; Fgd-tools 0.1.0 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fgd &#8212; ValveFGD 1.0.2 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -36,113 +36,113 @@
   <div class="section" id="fgd">
 <h1>Fgd<a class="headerlink" href="#fgd" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="fgdtools.Fgd">
-<em class="property">class </em><code class="sig-prename descclassname">fgdtools.</code><code class="sig-name descname">Fgd</code><a class="reference internal" href="../_modules/fgdtools/fgd.html#Fgd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.Fgd" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.Fgd">
+<em class="property">class </em><code class="sig-prename descclassname">valvefgd.</code><code class="sig-name descname">Fgd</code><a class="reference internal" href="../_modules/valvefgd/fgd.html#Fgd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.Fgd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Contains all the data from a Fgd file such as
 entities and other editor informations.</p>
 <dl class="py method">
-<dt id="fgdtools.Fgd.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#Fgd.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.Fgd.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.Fgd.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#Fgd.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.Fgd.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an empty instance of Fgd.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.Fgd.__repr__">
-<code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#Fgd.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.Fgd.__repr__" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.Fgd.__repr__">
+<code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#Fgd.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.Fgd.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>A partial, printable summary of a Fgd.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A Python formated string.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.Fgd.includes">
-<em class="property">property </em><code class="sig-name descname">includes</code><a class="headerlink" href="#fgdtools.Fgd.includes" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of included <a class="reference internal" href="#fgdtools.Fgd" title="fgdtools.Fgd"><code class="xref py py-class docutils literal notranslate"><span class="pre">fgdtools.Fgd</span></code></a>,
+<dt id="valvefgd.Fgd.includes">
+<em class="property">property </em><code class="sig-name descname">includes</code><a class="headerlink" href="#valvefgd.Fgd.includes" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of included <a class="reference internal" href="#valvefgd.Fgd" title="valvefgd.Fgd"><code class="xref py py-class docutils literal notranslate"><span class="pre">valvefgd.Fgd</span></code></a>,
 including inherited includes from &#64;includes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.Fgd.entities">
-<em class="property">property </em><code class="sig-name descname">entities</code><a class="headerlink" href="#fgdtools.Fgd.entities" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list containing all <a class="reference internal" href="fgd_entity.html#fgdtools.FgdEntity" title="fgdtools.FgdEntity"><code class="xref py py-class docutils literal notranslate"><span class="pre">fgdtools.FgdEntity</span></code></a>,
+<dt id="valvefgd.Fgd.entities">
+<em class="property">property </em><code class="sig-name descname">entities</code><a class="headerlink" href="#valvefgd.Fgd.entities" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list containing all <a class="reference internal" href="fgd_entity.html#valvefgd.FgdEntity" title="valvefgd.FgdEntity"><code class="xref py py-class docutils literal notranslate"><span class="pre">valvefgd.FgdEntity</span></code></a>,
 including inherited entities from &#64;includes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.Fgd.editor_data">
-<em class="property">property </em><code class="sig-name descname">editor_data</code><a class="headerlink" href="#fgdtools.Fgd.editor_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list containing all <a class="reference internal" href="fgd_editor_data.html#fgdtools.FgdEditorData" title="fgdtools.FgdEditorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">fgdtools.FgdEditorData</span></code></a>,
+<dt id="valvefgd.Fgd.editor_data">
+<em class="property">property </em><code class="sig-name descname">editor_data</code><a class="headerlink" href="#valvefgd.Fgd.editor_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list containing all <a class="reference internal" href="fgd_editor_data.html#valvefgd.FgdEditorData" title="valvefgd.FgdEditorData"><code class="xref py py-class docutils literal notranslate"><span class="pre">valvefgd.FgdEditorData</span></code></a>,
 including inherited data from &#64;includes.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.Fgd.add_include">
-<code class="sig-name descname">add_include</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_fgd</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#Fgd.add_include"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.Fgd.add_include" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a parent <a class="reference internal" href="#fgdtools.Fgd" title="fgdtools.Fgd"><code class="xref py py-class docutils literal notranslate"><span class="pre">fgdtools.Fgd</span></code></a> to supplement this one.</p>
+<dt id="valvefgd.Fgd.add_include">
+<code class="sig-name descname">add_include</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_fgd</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#Fgd.add_include"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.Fgd.add_include" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a parent <a class="reference internal" href="#valvefgd.Fgd" title="valvefgd.Fgd"><code class="xref py py-class docutils literal notranslate"><span class="pre">valvefgd.Fgd</span></code></a> to supplement this one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>parent_fgd</strong> (<a class="reference internal" href="#fgdtools.Fgd" title="fgdtools.Fgd"><em>Fgd</em></a>) – The Fgd object to be added as a parent.</p>
+<dd class="field-odd"><p><strong>parent_fgd</strong> (<a class="reference internal" href="#valvefgd.Fgd" title="valvefgd.Fgd"><em>Fgd</em></a>) – The Fgd object to be added as a parent.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.Fgd.add_entity">
-<code class="sig-name descname">add_entity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fgd_entity</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#Fgd.add_entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.Fgd.add_entity" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.Fgd.add_entity">
+<code class="sig-name descname">add_entity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fgd_entity</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#Fgd.add_entity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.Fgd.add_entity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds an entity to the Fgd.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>fgd_entity</strong> (<a class="reference internal" href="fgd_entity.html#fgdtools.FgdEntity" title="fgdtools.FgdEntity"><em>FgdEntity</em></a>) – The FgdEntity object to be added
+<dd class="field-odd"><p><strong>fgd_entity</strong> (<a class="reference internal" href="fgd_entity.html#valvefgd.FgdEntity" title="valvefgd.FgdEntity"><em>FgdEntity</em></a>) – The FgdEntity object to be added
 to this Fgd instance.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.Fgd.add_editor_data">
-<code class="sig-name descname">add_editor_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fgd_editor_data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#Fgd.add_editor_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.Fgd.add_editor_data" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.Fgd.add_editor_data">
+<code class="sig-name descname">add_editor_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fgd_editor_data</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#Fgd.add_editor_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.Fgd.add_editor_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds editor data to the Fgd.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>fgd_editor_data</strong> (<a class="reference internal" href="fgd_editor_data.html#fgdtools.FgdEditorData" title="fgdtools.FgdEditorData"><em>FgdEditorData</em></a>) – The FgdEditorData object to be added
+<dd class="field-odd"><p><strong>fgd_editor_data</strong> (<a class="reference internal" href="fgd_editor_data.html#valvefgd.FgdEditorData" title="valvefgd.FgdEditorData"><em>FgdEditorData</em></a>) – The FgdEditorData object to be added
 to this Fgd instance.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.Fgd.entity_by_name">
-<code class="sig-name descname">entity_by_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">entity_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#Fgd.entity_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.Fgd.entity_by_name" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.Fgd.entity_by_name">
+<code class="sig-name descname">entity_by_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">entity_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#Fgd.entity_by_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.Fgd.entity_by_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds an entity by its name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>entity_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The entity name to look for.</p>
+<dd class="field-odd"><p><strong>entity_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The entity name to look for.</p>
 </dd>
 <dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference internal" href="exceptions.html#fgdtools.EntityNotFound" title="fgdtools.EntityNotFound"><strong>EntityNotFound</strong></a> – Whenever an entity could not be found.</p>
+<dd class="field-even"><p><a class="reference internal" href="exceptions.html#valvefgd.EntityNotFound" title="valvefgd.EntityNotFound"><strong>EntityNotFound</strong></a> – Whenever an entity could not be found.</p>
 </dd>
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>An entity with matching name.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference internal" href="fgd_entity.html#fgdtools.FgdEntity" title="fgdtools.FgdEntity">FgdEntity</a></p>
+<dd class="field-even"><p><a class="reference internal" href="fgd_entity.html#valvefgd.FgdEntity" title="valvefgd.FgdEntity">FgdEntity</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.Fgd.fgd_str">
-<code class="sig-name descname">fgd_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">collapse</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#Fgd.fgd_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.Fgd.fgd_str" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.Fgd.fgd_str">
+<code class="sig-name descname">fgd_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">collapse</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#Fgd.fgd_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.Fgd.fgd_str" title="Permalink to this definition">¶</a></dt>
 <dd><p>A string representation of the Fgd formated as in the a .fgd file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>collapse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – If True, the content of included fgds will be included
+<dd class="field-odd"><p><strong>collapse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – If True, the content of included fgds will be included
 in the output and &#64;include statements will be removed.
 If False, Include statements will be in the output
 and the content of other Fgds will not be present.</p>
@@ -151,7 +151,7 @@ and the content of other Fgds will not be present.</p>
 <dd class="field-even"><p>Fgd formated string.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -168,9 +168,9 @@ and the content of other Fgds will not be present.</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/obsolete.png" alt="Logo"/>
+              <img class="logo" src="../_static/pysourcesdk_fgd.png" alt="Logo"/>
             </a></p>
-<h1 class="logo"><a href="../index.html">Fgd-tools</a></h1>
+<h1 class="logo"><a href="../index.html">ValveFGD</a></h1>
 
 
 
@@ -235,10 +235,10 @@ and the content of other Fgds will not be present.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2019, Maxime Dupuis.
+      &copy;2021, Maxime Dupuis.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

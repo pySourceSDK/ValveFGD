@@ -1,18 +1,18 @@
-Welcome to Fgd-tools's documentation!
+Welcome to ValveFGD's documentation!
 =====================================
 
 .. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
-   :target: https://github.com/maxdup/fgd-tools/blob/master/LICENSE.txt
+   :target: https://github.com/pySourceSDK/ValveFGD/blob/master/LICENSE.txt
 
-.. image:: https://img.shields.io/pypi/pyversions/fgdtools.svg
-   :target: https://pypi.python.org/pypi/fgdtools/
+.. image:: https://img.shields.io/pypi/pyversions/valvefgd.svg
+   :target: https://pypi.python.org/pypi/valvefgd/
 
-.. image:: https://badge.fury.io/py/fgdtools.svg
-   :target: https://pypi.python.org/pypi/fgdtools/
+.. image:: https://badge.fury.io/py/valvefgd.svg
+   :target: https://pypi.python.org/pypi/valvefgd/
 
 .. image:: coverage.svg
 
-Fgd-tools is a Python library for parsing .fgd files for the Source Engine level editor Hammer. It provides entity schemas and other level editor configuration information.
+ValveFGD is a Python library for parsing .fgd files for the Source Engine level editor Hammer. It provides entity schemas and other level editor configuration information.
 
 User Guides
 -----------

@@ -1,17 +1,17 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>FgdEditorData &#8212; Fgd-tools 0.1.0 documentation</title>
-    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FgdEditorData &#8212; ValveFGD 1.0.2 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -36,77 +36,77 @@
   <div class="section" id="fgdeditordata">
 <h1>FgdEditorData<a class="headerlink" href="#fgdeditordata" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="fgdtools.FgdEditorData">
-<em class="property">class </em><code class="sig-prename descclassname">fgdtools.</code><code class="sig-name descname">FgdEditorData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">class_type</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#FgdEditorData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.FgdEditorData" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.FgdEditorData">
+<em class="property">class </em><code class="sig-prename descclassname">valvefgd.</code><code class="sig-name descname">FgdEditorData</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">class_type</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#FgdEditorData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.FgdEditorData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Editor data, as represented in a Fgd file. Usually of types such as:
 &#64;include, &#64;mapsize, &#64;MaterialExclusion or &#64;AutoVisGroup.</p>
 <dl class="py method">
-<dt id="fgdtools.FgdEditorData.__init__">
-<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">class_type</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#FgdEditorData.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.FgdEditorData.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.FgdEditorData.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">class_type</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#FgdEditorData.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.FgdEditorData.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates an instance of FgdEditorData.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>class_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The editor_data’s type.
+<li><p><strong>class_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The editor_data’s type.
 Ex: ‘mapsize’, ‘MaterialExclusion’,
 ‘AutoVisGroup’, etc…</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The editor_data’s display name.</p></li>
-<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – The editor_data’s data.</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The editor_data’s display name.</p></li>
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The editor_data’s data.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.FgdEditorData.__repr__">
-<code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#FgdEditorData.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.FgdEditorData.__repr__" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.FgdEditorData.__repr__">
+<code class="sig-name descname">__repr__</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#FgdEditorData.__repr__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.FgdEditorData.__repr__" title="Permalink to this definition">¶</a></dt>
 <dd><p>A partial, printable summary of a FgdEditorData.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A Python formated string.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.FgdEditorData.class_type">
-<em class="property">property </em><code class="sig-name descname">class_type</code><a class="headerlink" href="#fgdtools.FgdEditorData.class_type" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.FgdEditorData.class_type">
+<em class="property">property </em><code class="sig-name descname">class_type</code><a class="headerlink" href="#valvefgd.FgdEditorData.class_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>The editor_data’s type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.FgdEditorData.name">
-<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#fgdtools.FgdEditorData.name" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.FgdEditorData.name">
+<em class="property">property </em><code class="sig-name descname">name</code><a class="headerlink" href="#valvefgd.FgdEditorData.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>The editor_data’s name.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.FgdEditorData.data">
-<em class="property">property </em><code class="sig-name descname">data</code><a class="headerlink" href="#fgdtools.FgdEditorData.data" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.FgdEditorData.data">
+<em class="property">property </em><code class="sig-name descname">data</code><a class="headerlink" href="#valvefgd.FgdEditorData.data" title="Permalink to this definition">¶</a></dt>
 <dd><p>The editor_data’s data, in the type that best matches class_type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)">tuple</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)">list</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.9)">list</a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="fgdtools.FgdEditorData.fgd_str">
-<code class="sig-name descname">fgd_str</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/fgdtools/fgd.html#FgdEditorData.fgd_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#fgdtools.FgdEditorData.fgd_str" title="Permalink to this definition">¶</a></dt>
+<dt id="valvefgd.FgdEditorData.fgd_str">
+<code class="sig-name descname">fgd_str</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/valvefgd/fgd.html#FgdEditorData.fgd_str"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#valvefgd.FgdEditorData.fgd_str" title="Permalink to this definition">¶</a></dt>
 <dd><p>A string representation of FgdEditorData
 formated as in the a .fgd file.</p>
 <dl class="field-list simple">
@@ -114,7 +114,7 @@ formated as in the a .fgd file.</p>
 <dd class="field-odd"><p>Fgd formated string.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -131,9 +131,9 @@ formated as in the a .fgd file.</p>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="../index.html">
-              <img class="logo" src="../_static/obsolete.png" alt="Logo"/>
+              <img class="logo" src="../_static/pysourcesdk_fgd.png" alt="Logo"/>
             </a></p>
-<h1 class="logo"><a href="../index.html">Fgd-tools</a></h1>
+<h1 class="logo"><a href="../index.html">ValveFGD</a></h1>
 
 
 
@@ -198,10 +198,10 @@ formated as in the a .fgd file.</p>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2019, Maxime Dupuis.
+      &copy;2021, Maxime Dupuis.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

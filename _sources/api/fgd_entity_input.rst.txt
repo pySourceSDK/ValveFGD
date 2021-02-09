@@ -1,7 +1,7 @@
 FgdEntityInput
 ================
 
-.. autoclass:: fgdtools.FgdEntityInput
+.. autoclass:: valvefgd.FgdEntityInput
    :special-members:
    :exclude-members: __weakref__
    :members:

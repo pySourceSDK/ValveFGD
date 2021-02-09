@@ -1,22 +1,22 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Quickstart &#8212; Fgd-tools 0.1.0 documentation</title>
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quickstart &#8212; ValveFGD 1.0.2 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Api Reference" href="api_ref.html" />
-    <link rel="prev" title="Welcome to Fgd-tools’s documentation!" href="index.html" />
+    <link rel="prev" title="Welcome to ValveFGD’s documentation!" href="index.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -40,8 +40,8 @@
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="pypi">
 <h3>PyPI<a class="headerlink" href="#pypi" title="Permalink to this headline">¶</a></h3>
-<p>Fgd-tools is available on the Python Package Index. This makes installing it with pip as easy as:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install fgdtools
+<p>ValveFGD is available on the Python Package Index. This makes installing it with pip as easy as:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install valvefgd
 </pre></div>
 </div>
 </div>
@@ -49,10 +49,10 @@
 <h3>Git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
 <p>If you want the latest code or even feel like contributing, the code is available on GitHub.</p>
 <p>You can easily clone the code with git:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git://github.com/maxdup/fgd-tools.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git://github.com/pySourceSDK/ValveFGD.git
 </pre></div>
 </div>
-<p>and install it with:</p>
+<p>and install it from the repo directory with:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 setup.py install
 </pre></div>
 </div>
@@ -60,11 +60,11 @@
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>Here’s a few example usage of fgd-tools</p>
+<p>Here’s a few example usage of ValveFGD</p>
 <div class="section" id="parsing">
 <h3>Parsing<a class="headerlink" href="#parsing" title="Permalink to this headline">¶</a></h3>
 <p>You can get a Fgd object by parsing an .fgd file using FgdParse</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kn">from</span> <span class="nn">fgdtools</span> <span class="kn">import</span> <span class="n">FgdParse</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kn">from</span> <span class="nn">valvefgd</span> <span class="kn">import</span> <span class="n">FgdParse</span>
 
 <span class="o">&gt;</span> <span class="n">fgd</span> <span class="o">=</span> <span class="n">FgdParse</span><span class="p">(</span><span class="s1">&#39;C:/Program Files (x86)/Steam/steamapps/common/Team Fortress 2/bin/tf.fgd&#39;</span><span class="p">)</span>
 </pre></div>
@@ -77,7 +77,7 @@
 <p class="admonition-title">Note</p>
 <p>Parsing/writing is destructive. Comments will be lost. The original structure of the file may be altered. The actual data about entities and the inheritance hierarchy is untouched however.</p>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kn">from</span> <span class="nn">fgdtools</span> <span class="kn">import</span> <span class="n">FgdWrite</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="kn">from</span> <span class="nn">valvefgd</span> <span class="kn">import</span> <span class="n">FgdWrite</span>
 
 <span class="o">&gt;</span> <span class="n">FgdWrite</span><span class="p">(</span><span class="n">fgd</span><span class="p">,</span> <span class="s1">&#39;tf-clone.fgd&#39;</span><span class="p">)</span>
 <span class="o">&gt;</span> <span class="n">FgdWrite</span><span class="p">(</span><span class="n">fgd</span><span class="p">,</span> <span class="s1">&#39;tf-clone.fgd&#39;</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -131,9 +131,9 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
             <p class="logo"><a href="index.html">
-              <img class="logo" src="_static/obsolete.png" alt="Logo"/>
+              <img class="logo" src="_static/pysourcesdk_fgd.png" alt="Logo"/>
             </a></p>
-<h1 class="logo"><a href="index.html">Fgd-tools</a></h1>
+<h1 class="logo"><a href="index.html">ValveFGD</a></h1>
 
 
 
@@ -162,7 +162,7 @@
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Fgd-tools’s documentation!</a></li>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to ValveFGD’s documentation!</a></li>
       <li>Next: <a href="api_ref.html" title="next chapter">Api Reference</a></li>
   </ul></li>
 </ul>
@@ -190,10 +190,10 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2019, Maxime Dupuis.
+      &copy;2021, Maxime Dupuis.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.0.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

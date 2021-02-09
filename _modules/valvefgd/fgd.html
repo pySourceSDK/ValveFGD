@@ -1,0 +1,1268 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>valvefgd.fgd &#8212; ValveFGD 1.0.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for valvefgd.fgd</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">int</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">next</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">str</span>
+<span class="kn">from</span> <span class="nn">builtins</span> <span class="kn">import</span> <span class="nb">object</span>
+<span class="kn">from</span> <span class="nn">future</span> <span class="kn">import</span> <span class="n">standard_library</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="n">standard_library</span><span class="o">.</span><span class="n">install_aliases</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="Fgd"><a class="viewcode-back" href="../../api/fgd.html#valvefgd.Fgd">[docs]</a><span class="k">class</span> <span class="nc">Fgd</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Contains all the data from a Fgd file such as</span>
+<span class="sd">    entities and other editor informations.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Fgd.__init__"><a class="viewcode-back" href="../../api/fgd.html#valvefgd.Fgd.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an empty instance of Fgd.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_includes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_editor_data</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="Fgd.__repr__"><a class="viewcode-back" href="../../api/fgd.html#valvefgd.Fgd.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A partial, printable summary of a Fgd.</span>
+
+<span class="sd">        :returns: A Python formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s2">&quot;&lt;Fgd {&#39;includes&#39;: [&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">includes</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;], &#39;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;entities&#39;: [&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;], &#39;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;editor_data&#39;: [&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">editor_data</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;]}&gt;&#39;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">includes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A list of included :class:`valvefgd.Fgd`,</span>
+<span class="sd">        including inherited includes from @includes.&quot;&quot;&quot;</span>
+
+        <span class="n">parent_includes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">includes</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_includes</span><span class="p">]</span>
+        <span class="n">parent_includes</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">parent_includes</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">parent_includes</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_includes</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">entities</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A list containing all :class:`valvefgd.FgdEntity`,</span>
+<span class="sd">        including inherited entities from @includes.&quot;&quot;&quot;</span>
+
+        <span class="n">parent_entities</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">entities</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_includes</span><span class="p">]</span>
+        <span class="n">parent_entities</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">parent_entities</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">parent_entities</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">editor_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A list containing all :class:`valvefgd.FgdEditorData`,</span>
+<span class="sd">        including inherited data from @includes.&quot;&quot;&quot;</span>
+
+        <span class="n">parent_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">editor_data</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_includes</span><span class="p">]</span>
+        <span class="n">parent_data</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">parent_data</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">parent_data</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_editor_data</span>
+
+<div class="viewcode-block" id="Fgd.add_include"><a class="viewcode-back" href="../../api/fgd.html#valvefgd.Fgd.add_include">[docs]</a>    <span class="k">def</span> <span class="nf">add_include</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_fgd</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds a parent :class:`valvefgd.Fgd` to supplement this one.</span>
+
+<span class="sd">        :param parent_fgd: The Fgd object to be added as a parent.</span>
+<span class="sd">        :type parent_fgd: Fgd</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parent_fgd</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_includes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent_fgd</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Fgd.add_entity"><a class="viewcode-back" href="../../api/fgd.html#valvefgd.Fgd.add_entity">[docs]</a>    <span class="k">def</span> <span class="nf">add_entity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fgd_entity</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds an entity to the Fgd.</span>
+
+<span class="sd">        :param fgd_entity: The FgdEntity object to be added</span>
+<span class="sd">                           to this Fgd instance.</span>
+<span class="sd">        :type fgd_entity: FgdEntity</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fgd_entity</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="c1"># find parents</span>
+        <span class="k">if</span> <span class="n">fgd_entity</span><span class="o">.</span><span class="n">definitions</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">definition</span> <span class="ow">in</span> <span class="n">fgd_entity</span><span class="o">.</span><span class="n">definitions</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;args&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">definition</span> <span class="ow">or</span> \
+                   <span class="s1">&#39;name&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">definition</span> <span class="ow">or</span> \
+                   <span class="n">definition</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;base&#39;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">entity_name</span> <span class="ow">in</span> <span class="n">definition</span><span class="p">[</span><span class="s1">&#39;args&#39;</span><span class="p">]:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">entity_by_name</span><span class="p">(</span><span class="n">entity_name</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">parent</span> <span class="ow">and</span> <span class="n">parent</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="n">fgd_entity</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                            <span class="n">fgd_entity</span><span class="o">.</span><span class="n">_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">parent</span><span class="p">)</span>
+                    <span class="k">except</span> <span class="n">EntityNotFound</span><span class="p">:</span>
+                        <span class="k">pass</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fgd_entity</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Fgd.add_editor_data"><a class="viewcode-back" href="../../api/fgd.html#valvefgd.Fgd.add_editor_data">[docs]</a>    <span class="k">def</span> <span class="nf">add_editor_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fgd_editor_data</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Adds editor data to the Fgd.</span>
+
+<span class="sd">        :param fgd_editor_data: The FgdEditorData object to be added</span>
+<span class="sd">                                to this Fgd instance.</span>
+<span class="sd">        :type fgd_editor_data: FgdEditorData</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">fgd_editor_data</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_editor_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fgd_editor_data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Fgd.entity_by_name"><a class="viewcode-back" href="../../api/fgd.html#valvefgd.Fgd.entity_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">entity_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entity_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds an entity by its name.</span>
+
+<span class="sd">        :param entity_name: The entity name to look for.</span>
+<span class="sd">        :type entity_name: str</span>
+
+<span class="sd">        :raises EntityNotFound: Whenever an entity could not be found.</span>
+<span class="sd">        :return: An entity with matching name.</span>
+<span class="sd">        :rtype: FgdEntity</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">c</span><span class="p">,</span> <span class="n">FgdEntity</span><span class="p">)</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">entity_name</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">EntityNotFound</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Fgd.fgd_str"><a class="viewcode-back" href="../../api/fgd.html#valvefgd.Fgd.fgd_str">[docs]</a>    <span class="k">def</span> <span class="nf">fgd_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">collapse</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A string representation of the Fgd formated as in the a .fgd file.</span>
+
+<span class="sd">        :param collapse: If True, the content of included fgds will be included</span>
+<span class="sd">                         in the output and @include statements will be removed.</span>
+<span class="sd">                         If False, Include statements will be in the output</span>
+<span class="sd">                         and the content of other Fgds will not be present.</span>
+<span class="sd">        :type collapse: bool</span>
+<span class="sd">        :return: Fgd formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fgd_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">collapse</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">editor_data</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">d</span><span class="o">.</span><span class="n">class_type</span> <span class="o">==</span> <span class="s1">&#39;include&#39;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="n">d</span><span class="o">.</span><span class="n">fgd_str</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="n">e</span><span class="o">.</span><span class="n">fgd_str</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_editor_data</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="n">d</span><span class="o">.</span><span class="n">fgd_str</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_entities</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="n">e</span><span class="o">.</span><span class="n">fgd_str</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span>
+        <span class="k">return</span> <span class="n">fgd_str</span></div></div>
+
+
+<div class="viewcode-block" id="FgdEditorData"><a class="viewcode-back" href="../../api/fgd_editor_data.html#valvefgd.FgdEditorData">[docs]</a><span class="k">class</span> <span class="nc">FgdEditorData</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Editor data, as represented in a Fgd file. Usually of types such as:</span>
+<span class="sd">    @include, @mapsize, @MaterialExclusion or @AutoVisGroup.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FgdEditorData.__init__"><a class="viewcode-back" href="../../api/fgd_editor_data.html#valvefgd.FgdEditorData.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_type</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an instance of FgdEditorData.</span>
+
+<span class="sd">        :param class_type: The editor_data&#39;s type.</span>
+<span class="sd">                           Ex: &#39;mapsize&#39;, &#39;MaterialExclusion&#39;,</span>
+<span class="sd">                           &#39;AutoVisGroup&#39;, etc...</span>
+<span class="sd">        :type class_type: str</span>
+
+<span class="sd">        :param name: The editor_data&#39;s display name.</span>
+<span class="sd">        :type name: str</span>
+
+<span class="sd">        :param data: The editor_data&#39;s data.</span>
+<span class="sd">        :type data: str or tuple or list or dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_type</span> <span class="o">=</span> <span class="n">class_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">data</span></div>
+
+<div class="viewcode-block" id="FgdEditorData.__repr__"><a class="viewcode-back" href="../../api/fgd_editor_data.html#valvefgd.FgdEditorData.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A partial, printable summary of a FgdEditorData.</span>
+
+<span class="sd">        :returns: A Python formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s1">&#39;&lt;FgdEditorData of type &#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_class_type</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="p">(</span><span class="s1">&#39; named &#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, [...]&gt;&#39;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">class_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The editor_data&#39;s type.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The editor_data&#39;s name.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The editor_data&#39;s data, in the type that best matches class_type.</span>
+
+<span class="sd">        :rtype: str or tuple or list or dict&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+
+<div class="viewcode-block" id="FgdEditorData.fgd_str"><a class="viewcode-back" href="../../api/fgd_editor_data.html#valvefgd.FgdEditorData.fgd_str">[docs]</a>    <span class="k">def</span> <span class="nf">fgd_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A string representation of FgdEditorData</span>
+<span class="sd">        formated as in the a .fgd file.</span>
+
+<span class="sd">        :return: Fgd formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fgd_str</span> <span class="o">=</span> <span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class_type</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; = &quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; &quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;(&#39;</span>
+                <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+                    <span class="n">fgd_str</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span>
+                <span class="n">fgd_str</span> <span class="o">=</span> <span class="n">fgd_str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[&#39;</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">&quot;&#39;</span> <span class="o">+</span> <span class="n">k</span> <span class="o">+</span> <span class="s1">&#39;&quot;</span><span class="se">\n\t</span><span class="s1">[&#39;</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                        <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\t\t</span><span class="s1">&quot;&#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+                    <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">]&#39;</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">]&#39;</span>
+
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">[&#39;</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+                    <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\t</span><span class="s1">&quot;&#39;</span> <span class="o">+</span> <span class="n">i</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">]&#39;</span>
+        <span class="k">return</span> <span class="n">fgd_str</span></div></div>
+
+
+<div class="viewcode-block" id="FgdEntity"><a class="viewcode-back" href="../../api/fgd_entity.html#valvefgd.FgdEntity">[docs]</a><span class="k">class</span> <span class="nc">FgdEntity</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An entity, as represented in a Fgd file.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FgdEntity.__init__"><a class="viewcode-back" href="../../api/fgd_entity.html#valvefgd.FgdEntity.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_type</span><span class="p">,</span> <span class="n">definitions</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">properties</span><span class="o">=</span><span class="p">[],</span> <span class="n">spawnflags</span><span class="o">=</span><span class="p">[],</span> <span class="n">inputs</span><span class="o">=</span><span class="p">[],</span> <span class="n">outputs</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an instance of FgdEntity.</span>
+
+<span class="sd">        :param class_type: The entity&#39;s type.</span>
+<span class="sd">                       Ex: &#39;BaseClass&#39;, &#39;SolidClass&#39;, &#39;PointClass&#39;, etc...</span>
+<span class="sd">        :type class_type: str</span>
+
+<span class="sd">        :param definitions: Information defining the entity within the editor.</span>
+<span class="sd">                        Ex: &#39;base()&#39;, &#39;size()&#39;, &#39;line()&#39;, &#39;studioprop()&#39;, etc...</span>
+<span class="sd">        :type definitions: list[dict]</span>
+
+<span class="sd">        :param name: The entity&#39;s name.</span>
+<span class="sd">        :type name: str</span>
+
+<span class="sd">        :param description: The entity&#39;s description.</span>
+<span class="sd">        :type description: str, optional</span>
+
+<span class="sd">        :param properties: The entity&#39;s properties.</span>
+<span class="sd">        :type properties: list[FgdEntityProperty], optional</span>
+
+<span class="sd">        :param spawnflags: The entity&#39;s spawnflags.</span>
+<span class="sd">        :type spawnflags: list[FgdEntitySpawnflag], optional</span>
+
+<span class="sd">        :param inputs: The entity&#39;s inputs.</span>
+<span class="sd">        :type inputs: list[FgdEntityInput], optional</span>
+
+<span class="sd">        :param output: The entity&#39;s outputs.</span>
+<span class="sd">        :type output: list[FgdEntityOutput], optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_class_type</span> <span class="o">=</span> <span class="n">class_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_definitions</span> <span class="o">=</span> <span class="n">definitions</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="o">=</span> <span class="n">properties</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_spawnflags</span> <span class="o">=</span> <span class="n">spawnflags</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span> <span class="o">=</span> <span class="n">inputs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span> <span class="o">=</span> <span class="n">outputs</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="FgdEntity.__repr__"><a class="viewcode-back" href="../../api/fgd_entity.html#valvefgd.FgdEntity.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A partial, printable summary of a FgdEntity.</span>
+
+<span class="sd">        :returns: A Python formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s2">&quot;&lt;FgdEntity {&#39;type&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_class_type</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="s2">&quot;, &#39;name&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="p">(</span><span class="s2">&quot;, &#39;description&#39;: &quot;</span> <span class="o">+</span>
+             <span class="nb">repr</span><span class="p">(</span><span class="n">shortentext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, [...]}&gt;&#39;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this entity&#39;s attributes.</span>
+
+<span class="sd">        :returns: A dictionary.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">schema_obj</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">,</span>
+            <span class="s1">&#39;class_type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class_type</span><span class="p">,</span>
+            <span class="s1">&#39;definitions&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_definitions</span><span class="p">,</span>
+            <span class="s1">&#39;properties&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties_schema</span><span class="p">,</span>
+            <span class="s1">&#39;inputs&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs_schema</span><span class="p">,</span>
+            <span class="s1">&#39;outputs&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputs_schema</span><span class="p">,</span>
+            <span class="s1">&#39;spawnflags&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">spawnflags_schema</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">schema_obj</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">properties_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this entity&#39;s properties.</span>
+
+<span class="sd">        :returns: A list of dictionaries.</span>
+<span class="sd">        :rtype: list[dict]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">schema</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="p">]</span> <span class="o">+</span> \
+            <span class="p">[{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;classname&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;default_value&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;readonly&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+             <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;integer&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;readonly&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">inputs_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this entity&#39;s inputs.</span>
+
+<span class="sd">        :returns: A list of dictionaries.</span>
+<span class="sd">        :rtype: list[dict]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">schema</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">outputs_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this entity&#39;s outputs.</span>
+
+<span class="sd">        :returns: A list of dictionaries.</span>
+<span class="sd">        :rtype: list[dict]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">schema</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">spawnflags_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this entity&#39;s spanwnflags.</span>
+
+<span class="sd">        :returns: A list of dictionaries.</span>
+<span class="sd">        :rtype: list[dict]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">schema</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spawnflags</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">class_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The entity&#39;s type.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The entity&#39;s parent entities, as defined in the entity&#39;s \</span>
+<span class="sd">        base(definition).</span>
+
+<span class="sd">        :rtype: list[FgdEntity]&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The entity&#39;s type.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The entity&#39;s description.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">definitions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The entity&#39;s definitions.</span>
+
+<span class="sd">        :rtype: list[dict]&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_definitions</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The entity&#39;s properties, including inherited properties.</span>
+
+<span class="sd">        Note: As in the way Hammer behaves,</span>
+<span class="sd">        properties of the same name are overridden.</span>
+
+<span class="sd">        :rtype: list[FgdEntityProperty]&quot;&quot;&quot;</span>
+
+        <span class="n">properties</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parent</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
+                <span class="n">properties</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
+            <span class="n">properties</span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">properties</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">spawnflags</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The entity&#39;s spawnflags, including inherited spawnflags.</span>
+
+<span class="sd">        Note: As in the way Hammer behaves, the spawnflags definition</span>
+<span class="sd">        will merge with inherited definitions only if there is no</span>
+<span class="sd">        collision between values. If there is a collision, only</span>
+<span class="sd">        the latest definition will be taken into account.</span>
+
+<span class="sd">        :rtype: list[FgdEntitySpawnflag]&quot;&quot;&quot;</span>
+
+        <span class="n">spawnflags</span> <span class="o">=</span> <span class="p">[]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spawnflags</span>
+        <span class="n">ineligible_parents</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">spawnflags</span><span class="p">:</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">spawnflags</span> <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">s</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">next</span><span class="p">(</span><span class="n">found</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+                    <span class="n">ineligible_parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ineligible_parents</span><span class="p">:</span>
+                <span class="n">spawnflags</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">spawnflags</span>
+        <span class="k">return</span> <span class="n">spawnflags</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The entity&#39;s inputs, including inherited inputs.</span>
+
+<span class="sd">        Note: As in the way Hammer behaves, inputs cannot be overridden.</span>
+<span class="sd">        All duplicate inputs are ignored, only the oldest is returned.</span>
+
+<span class="sd">        :rtype: list[FgdEntityInput]&quot;&quot;&quot;</span>
+
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+                    <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+                <span class="n">inputs</span><span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The entity&#39;s outputs, including inherited outputs.</span>
+
+<span class="sd">        Note: As in the way Hammer behaves, outputs cannot be overridden.</span>
+<span class="sd">        All duplicate outputs are returned.</span>
+
+<span class="sd">        :rtype: list[FgdEntityOutput]&quot;&quot;&quot;</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parents</span><span class="p">:</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span> <span class="o">+</span> <span class="n">t</span><span class="o">.</span><span class="n">outputs</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span>
+
+        <span class="k">return</span> <span class="n">outputs</span>
+
+<div class="viewcode-block" id="FgdEntity.property_by_name"><a class="viewcode-back" href="../../api/fgd_entity.html#valvefgd.FgdEntity.property_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">property_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prop_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds an entity property by its name.</span>
+
+<span class="sd">        :param prop_name: The entity property name to look for.</span>
+<span class="sd">        :type prop_name: str</span>
+<span class="sd">        :raises PropertyNotFound: Whenever an entity property</span>
+<span class="sd">                                  could not be found.</span>
+<span class="sd">        :return: An entity property with matching name.</span>
+<span class="sd">        :rtype: FgdEntityProperty</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">prop_name</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">PropertyNotFound</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="FgdEntity.spawnflag_by_value"><a class="viewcode-back" href="../../api/fgd_entity.html#valvefgd.FgdEntity.spawnflag_by_value">[docs]</a>    <span class="k">def</span> <span class="nf">spawnflag_by_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spawnflag_value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds a property choice by its value.</span>
+
+<span class="sd">        :param spawnflag_value: The property spawnflag value to look for.</span>
+<span class="sd">        :type spawnflag_value: int</span>
+<span class="sd">        :raises SpawnflagNotFound: Whenever an entity spawnflag</span>
+<span class="sd">                                   could not be found.</span>
+<span class="sd">        :return: An entity spawnflag with matching value.</span>
+<span class="sd">        :rtype: FgdEntitySpawnflag</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spawnflags</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">spawnflag_value</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">SpawnflagNotFound</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="FgdEntity.input_by_name"><a class="viewcode-back" href="../../api/fgd_entity.html#valvefgd.FgdEntity.input_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">input_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds an entity input by its name.</span>
+
+<span class="sd">        :param input_name: The entity input name to look for.</span>
+<span class="sd">        :type input_name: str</span>
+<span class="sd">        :raises InputNotFound: Whenever an entity input could not be found.</span>
+<span class="sd">        :return: An entity input with matching name.</span>
+<span class="sd">        :rtype: FgdEntityInput</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inputs</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">input_name</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InputNotFound</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="FgdEntity.output_by_name"><a class="viewcode-back" href="../../api/fgd_entity.html#valvefgd.FgdEntity.output_by_name">[docs]</a>    <span class="k">def</span> <span class="nf">output_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds an entity output by its name.</span>
+
+<span class="sd">        :param output_name: The entity output name to look for.</span>
+<span class="sd">        :type output_name: str</span>
+<span class="sd">        :raises OutputNotFound: Whenever an entity output could not be found.</span>
+<span class="sd">        :return: An entity output with matching name.</span>
+<span class="sd">        :rtype: FgdEntityOutput</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="n">output_name</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">OutputNotFound</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="FgdEntity.fgd_str"><a class="viewcode-back" href="../../api/fgd_entity.html#valvefgd.FgdEntity.fgd_str">[docs]</a>    <span class="k">def</span> <span class="nf">fgd_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A string representation of the FgdEntity</span>
+<span class="sd">        formated as in the a .fgd file.</span>
+
+<span class="sd">        :return: Fgd formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fgd_str</span> <span class="o">=</span> <span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class_type</span>
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_definitions</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;args&#39;</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot;(&quot;</span>
+                <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;args&#39;</span><span class="p">]:</span>
+                    <span class="n">fgd_str</span> <span class="o">+=</span> <span class="n">arg</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span>
+                <span class="n">fgd_str</span> <span class="o">=</span> <span class="n">fgd_str</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; = &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; : &quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spawnflags</span> <span class="ow">or</span> \
+                <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">[&quot;</span>
+            <span class="k">for</span> <span class="n">prop</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_properties</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">prop</span><span class="o">.</span><span class="n">fgd_str</span><span class="p">()</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spawnflags</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">spawnflags(flags) =</span><span class="se">\n\t</span><span class="s2">[&quot;</span>
+                <span class="k">for</span> <span class="n">flag</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spawnflags</span><span class="p">:</span>
+                    <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">flag</span><span class="o">.</span><span class="n">fgd_str</span><span class="p">()</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">]&quot;</span>
+            <span class="k">for</span> <span class="nb">input</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="nb">input</span><span class="o">.</span><span class="n">fgd_str</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\t</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">output</span><span class="o">.</span><span class="n">fgd_str</span><span class="p">()</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">]&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s2">&quot; []&quot;</span>
+
+        <span class="k">return</span> <span class="n">fgd_str</span></div></div>
+
+
+<div class="viewcode-block" id="FgdEntityProperty"><a class="viewcode-back" href="../../api/fgd_entity_property.html#valvefgd.FgdEntityProperty">[docs]</a><span class="k">class</span> <span class="nc">FgdEntityProperty</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An entity property, as represented in a Fgd file.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FgdEntityProperty.__init__"><a class="viewcode-back" href="../../api/fgd_entity_property.html#valvefgd.FgdEntityProperty.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">readonly</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">display_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">choices</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an instance of FgdEntityProperty.</span>
+
+<span class="sd">        :param name: The property&#39;s name.</span>
+<span class="sd">        :type name: str</span>
+
+<span class="sd">        :param value_type: The property&#39;s value type.</span>
+<span class="sd">                       Ex:&#39;integer&#39;, &#39;float&#39;, &#39;choices&#39;, etc...</span>
+<span class="sd">        :type value_type: str</span>
+
+<span class="sd">        :param name: The property&#39;s readonly status.</span>
+<span class="sd">        :type name: bool, optional</span>
+
+<span class="sd">        :param display_name: The property&#39;s display name.</span>
+<span class="sd">        :type display_name: str, optional</span>
+
+<span class="sd">        :param default_value: The property&#39;s unparsed default value.</span>
+<span class="sd">        :type default_value: str, optional</span>
+
+<span class="sd">        :param description: The property&#39;s description.</span>
+<span class="sd">        :type description: str, optional</span>
+
+<span class="sd">        :param choices: The property&#39;s choices.</span>
+<span class="sd">                    (applicable only to value_type &quot;choices&quot;)</span>
+<span class="sd">        :type choices: list[FgdEntityPropertyChoice], optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span> <span class="o">=</span> <span class="n">value_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_readonly</span> <span class="o">=</span> <span class="n">readonly</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span> <span class="o">=</span> <span class="n">display_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span> <span class="o">=</span> <span class="n">default_value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">=</span> <span class="n">description</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_choices</span> <span class="o">=</span> <span class="n">choices</span></div>
+
+<div class="viewcode-block" id="FgdEntityProperty.__repr__"><a class="viewcode-back" href="../../api/fgd_entity_property.html#valvefgd.FgdEntityProperty.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A partial, printable summary of a FgdEntityProperty.</span>
+
+<span class="sd">        :returns: A Python formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s1">&#39;&lt;FgdEntityProperty {&#39;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;name&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="s2">&quot;, &#39;value_type&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="p">(</span><span class="s2">&quot;, &#39;description&#39;: &quot;</span> <span class="o">+</span>
+             <span class="nb">repr</span><span class="p">(</span><span class="n">shortentext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
+             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, [...]}&gt;&#39;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this entity property&#39;s attributes.</span>
+
+<span class="sd">        :returns: A dictionary</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">schema_obj</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
+            <span class="s1">&#39;display_name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">,</span>
+            <span class="s1">&#39;readonly&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readonly</span><span class="p">,</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span><span class="p">,</span>
+            <span class="s1">&#39;default_value&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
+            <span class="n">schema_obj</span><span class="p">[</span><span class="s1">&#39;choices&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span><span class="o">.</span><span class="n">schema</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">schema_obj</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The property&#39;s name.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The property&#39;s type.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">readonly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The property&#39;s readonly status.</span>
+
+<span class="sd">        :rtype: bool&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readonly</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">display_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The property&#39;s display_name.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">default_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The property&#39;s unparsed default_value.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The property&#39;s description.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">choices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The property&#39;s choices.</span>
+
+<span class="sd">        :rtype: list[FgdEntityPropertyChoice]&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span> <span class="o">==</span> <span class="s1">&#39;choices&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_choices</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="FgdEntityProperty.choice_by_value"><a class="viewcode-back" href="../../api/fgd_entity_property.html#valvefgd.FgdEntityProperty.choice_by_value">[docs]</a>    <span class="k">def</span> <span class="nf">choice_by_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">choice_value</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finds a property choice by its value</span>
+
+<span class="sd">        :param choice_value: The property choice value to look for.</span>
+<span class="sd">        :type choice_value: int</span>
+<span class="sd">        :raises ChoiceNotFound: Whenever a property choice could not be found.</span>
+<span class="sd">        :return: A property choice with matching value.</span>
+<span class="sd">        :rtype: FgdEntityPropertyChoice</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ChoiceNotFound</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span> <span class="k">if</span> <span class="n">o</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">choice_value</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">ChoiceNotFound</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="FgdEntityProperty.fgd_str"><a class="viewcode-back" href="../../api/fgd_entity_property.html#valvefgd.FgdEntityProperty.fgd_str">[docs]</a>    <span class="k">def</span> <span class="nf">fgd_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A string representation of the entity property</span>
+<span class="sd">        formated as in the a .fgd file.</span>
+
+<span class="sd">        :return: Fgd formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># name</span>
+        <span class="n">fgd_str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
+        <span class="c1"># readonly</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_readonly</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; readonly&#39;</span>
+
+        <span class="c1"># display name</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; : &quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; :&#39;</span>
+
+        <span class="c1"># default_value</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; : &#39;</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; :&#39;</span>
+
+        <span class="c1"># description</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; : &quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+
+        <span class="c1"># choices</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; =</span><span class="se">\n\t</span><span class="s1">[</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="k">for</span> <span class="n">choice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">choices</span><span class="p">:</span>
+                <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\t\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">choice</span><span class="o">.</span><span class="n">fgd_str</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">]&#39;</span>
+
+        <span class="k">return</span> <span class="n">fgd_str</span></div></div>
+
+
+<div class="viewcode-block" id="FgdEntityInput"><a class="viewcode-back" href="../../api/fgd_entity_input.html#valvefgd.FgdEntityInput">[docs]</a><span class="k">class</span> <span class="nc">FgdEntityInput</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An entity input, as represented in a Fgd file.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FgdEntityInput.__init__"><a class="viewcode-back" href="../../api/fgd_entity_input.html#valvefgd.FgdEntityInput.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an instance of FgdEntityInput.</span>
+
+<span class="sd">        :param name: The input&#39;s name.</span>
+<span class="sd">        :type name: str</span>
+
+<span class="sd">        :param value_type: The input&#39;s type.</span>
+<span class="sd">        :type value_type: str</span>
+
+<span class="sd">        :param description: The input&#39;s description.</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span> <span class="o">=</span> <span class="n">value_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">=</span> <span class="n">description</span></div>
+
+<div class="viewcode-block" id="FgdEntityInput.__repr__"><a class="viewcode-back" href="../../api/fgd_entity_input.html#valvefgd.FgdEntityInput.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A partial, printable summary of a FgdEntityInput.</span>
+
+<span class="sd">        :returns: A Python formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s1">&#39;&lt;FgdEntityInput {&#39;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;name&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;value_type&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;description&#39;: &quot;</span> <span class="o">+</span> \
+            <span class="nb">repr</span><span class="p">(</span><span class="n">shortentext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;}&gt;&quot;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this entity input&#39;s attributes.</span>
+
+<span class="sd">        :returns: A dictionary.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">schema_obj</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">schema_obj</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The input&#39;s name.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The input&#39;s type.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The input&#39;s description.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span>
+
+<div class="viewcode-block" id="FgdEntityInput.fgd_str"><a class="viewcode-back" href="../../api/fgd_entity_input.html#valvefgd.FgdEntityInput.fgd_str">[docs]</a>    <span class="k">def</span> <span class="nf">fgd_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A string representation of the entity input</span>
+<span class="sd">        formated as in the a .fgd file.</span>
+
+<span class="sd">        :return: Fgd formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s1">&#39;input &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span> <span class="o">+</span> \
+            <span class="s1">&#39; : &quot;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span></div></div>
+
+
+<div class="viewcode-block" id="FgdEntityOutput"><a class="viewcode-back" href="../../api/fgd_entity_output.html#valvefgd.FgdEntityOutput">[docs]</a><span class="k">class</span> <span class="nc">FgdEntityOutput</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An entity output, as represented in a Fgd file.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FgdEntityOutput.__init__"><a class="viewcode-back" href="../../api/fgd_entity_output.html#valvefgd.FgdEntityOutput.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value_type</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an instance of FgdEntityOutput.</span>
+
+<span class="sd">        :param name: The output&#39;s name.</span>
+<span class="sd">        :type name: str</span>
+
+<span class="sd">        :param value_type: The output&#39;s type.</span>
+<span class="sd">        :type value_type: str</span>
+
+<span class="sd">        :param description: The output&#39;s description.</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span> <span class="o">=</span> <span class="n">value_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_description</span> <span class="o">=</span> <span class="n">description</span></div>
+
+<div class="viewcode-block" id="FgdEntityOutput.__repr__"><a class="viewcode-back" href="../../api/fgd_entity_output.html#valvefgd.FgdEntityOutput.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A partial, printable summary of a FgdEntityOutput.</span>
+
+<span class="sd">        :returns: A Python formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s1">&#39;&lt;FgdEntityOutput {&#39;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;name&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;value_type&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;description&#39;: &quot;</span> <span class="o">+</span> \
+            <span class="nb">repr</span><span class="p">(</span><span class="n">shortentext</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span> <span class="o">+</span> <span class="s2">&quot;}&gt;&quot;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this entity output&#39;s attributes.</span>
+
+<span class="sd">        :returns: A dictionary.</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">schema_obj</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="p">,</span>
+            <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span><span class="p">,</span>
+            <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">schema_obj</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The output&#39;s name.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The output&#39;s type.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">description</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The output&#39;s description.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_description</span>
+
+<div class="viewcode-block" id="FgdEntityOutput.fgd_str"><a class="viewcode-back" href="../../api/fgd_entity_output.html#valvefgd.FgdEntityOutput.fgd_str">[docs]</a>    <span class="k">def</span> <span class="nf">fgd_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A string representation of the entity output.</span>
+<span class="sd">        formated as in the a .fgd file</span>
+
+<span class="sd">        :return: Fgd formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s1">&#39;output &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value_type</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span> <span class="o">+</span> \
+            <span class="s1">&#39; : &quot;&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span></div></div>
+
+
+<div class="viewcode-block" id="FgdEntityPropertyChoice"><a class="viewcode-back" href="../../api/fgd_entity_property_choice.html#valvefgd.FgdEntityPropertyChoice">[docs]</a><span class="k">class</span> <span class="nc">FgdEntityPropertyChoice</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A property choice, as found in entity properties of type &quot;choices&quot;.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FgdEntityPropertyChoice.__init__"><a class="viewcode-back" href="../../api/fgd_entity_property_choice.html#valvefgd.FgdEntityPropertyChoice.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">display_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an instance of FgdEntityPropertyChoice.</span>
+
+<span class="sd">        :param value: The choice&#39;s value.</span>
+<span class="sd">        :type value: str</span>
+
+<span class="sd">        :param display_name: The choice&#39;s display_name.</span>
+<span class="sd">        :type display_name: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span> <span class="o">=</span> <span class="n">display_name</span></div>
+
+<div class="viewcode-block" id="FgdEntityPropertyChoice.__repr__"><a class="viewcode-back" href="../../api/fgd_entity_property_choice.html#valvefgd.FgdEntityPropertyChoice.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A full, printable representation of a FgdEntityPropertyChoice.</span>
+
+<span class="sd">        :returns: A Python formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s1">&#39;&lt;FgdEntityPropertyChoice {&#39;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;value&#39;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;display_name&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;}&gt;&quot;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this property choice.</span>
+
+<span class="sd">        :returns: A dictionary</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">schema_obj</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span>
+            <span class="s1">&#39;display_name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">schema_obj</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The choice&#39;s value.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">display_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The choice&#39;s display name.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span>
+
+<div class="viewcode-block" id="FgdEntityPropertyChoice.fgd_str"><a class="viewcode-back" href="../../api/fgd_entity_property_choice.html#valvefgd.FgdEntityPropertyChoice.fgd_str">[docs]</a>    <span class="k">def</span> <span class="nf">fgd_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A string representation of the property choice</span>
+<span class="sd">        formated as in the a .fgd file.</span>
+
+<span class="sd">        :return: Fgd formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fgd_str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+        <span class="n">fgd_str</span> <span class="o">+=</span> <span class="s1">&#39; : &quot;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+
+        <span class="k">return</span> <span class="n">fgd_str</span></div></div>
+
+
+<div class="viewcode-block" id="FgdEntitySpawnflag"><a class="viewcode-back" href="../../api/fgd_entity_spawnflag.html#valvefgd.FgdEntitySpawnflag">[docs]</a><span class="k">class</span> <span class="nc">FgdEntitySpawnflag</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;An entity Spawnflag, as represented in a Fgd file.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FgdEntitySpawnflag.__init__"><a class="viewcode-back" href="../../api/fgd_entity_spawnflag.html#valvefgd.FgdEntitySpawnflag.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">display_name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates an instance of FgdEntitySpawnflag.</span>
+
+<span class="sd">        :param value: The spawnflag&#39;s value.</span>
+<span class="sd">        :type value: int</span>
+
+<span class="sd">        :param display_name: The spawnflag&#39;s display_name.</span>
+<span class="sd">        :type display_name: str</span>
+
+<span class="sd">        :param default_value: The spawnflag&#39;s default_value.</span>
+<span class="sd">        :type default_value: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span> <span class="o">=</span> <span class="n">display_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span> <span class="o">=</span> <span class="n">default_value</span></div>
+
+<div class="viewcode-block" id="FgdEntitySpawnflag.__repr__"><a class="viewcode-back" href="../../api/fgd_entity_spawnflag.html#valvefgd.FgdEntitySpawnflag.__repr__">[docs]</a>    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A full, printable representation of a FgdEntitySpawnflag.</span>
+
+<span class="sd">        :returns: A Python formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="s1">&#39;&lt;FgdEntitySpawnflag {&#39;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;value&#39;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;display_name&#39;: &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span> <span class="o">+</span> \
+            <span class="s2">&quot;&#39;default_value&#39;: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;}&gt;&quot;</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A schematic view of this Spawnflag.</span>
+
+<span class="sd">        :returns: A dictionary</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">schema_obj</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">,</span>
+            <span class="s1">&#39;display_name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span><span class="p">,</span>
+            <span class="s1">&#39;default_value&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">schema_obj</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The spawnflag&#39;s value.</span>
+
+<span class="sd">        :rtype: int&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">display_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The spawnflag&#39;s display name.</span>
+
+<span class="sd">        :rtype: str&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">default_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The spawnflag&#39;s default value.</span>
+
+<span class="sd">        :rtype: int&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_value</span>
+
+<div class="viewcode-block" id="FgdEntitySpawnflag.fgd_str"><a class="viewcode-back" href="../../api/fgd_entity_spawnflag.html#valvefgd.FgdEntitySpawnflag.fgd_str">[docs]</a>    <span class="k">def</span> <span class="nf">fgd_str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A string representation of the spawnflag</span>
+<span class="sd">        formated as in the a .fgd file.</span>
+
+<span class="sd">        :return: Fgd formated string.</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">fgd_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_value</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; : &quot;&#39;</span>
+        <span class="n">fgd_str</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_display_name</span> <span class="o">+</span> <span class="s1">&#39;&quot; : &#39;</span>
+        <span class="n">fgd_str</span> <span class="o">+=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_value</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">fgd_str</span></div></div>
+
+
+<div class="viewcode-block" id="EntityNotFound"><a class="viewcode-back" href="../../api/exceptions.html#valvefgd.EntityNotFound">[docs]</a><span class="k">class</span> <span class="nc">EntityNotFound</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when an entity could not be found.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="PropertyNotFound"><a class="viewcode-back" href="../../api/exceptions.html#valvefgd.PropertyNotFound">[docs]</a><span class="k">class</span> <span class="nc">PropertyNotFound</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when an entity property could not be found.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="InputNotFound"><a class="viewcode-back" href="../../api/exceptions.html#valvefgd.InputNotFound">[docs]</a><span class="k">class</span> <span class="nc">InputNotFound</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when an entity input could not be found.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="OutputNotFound"><a class="viewcode-back" href="../../api/exceptions.html#valvefgd.OutputNotFound">[docs]</a><span class="k">class</span> <span class="nc">OutputNotFound</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when an entity output could not be found.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="SpawnflagNotFound"><a class="viewcode-back" href="../../api/exceptions.html#valvefgd.SpawnflagNotFound">[docs]</a><span class="k">class</span> <span class="nc">SpawnflagNotFound</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when an entity Spawnflag could not be found.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="ChoiceNotFound"><a class="viewcode-back" href="../../api/exceptions.html#valvefgd.ChoiceNotFound">[docs]</a><span class="k">class</span> <span class="nc">ChoiceNotFound</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Raised when a property choice could not be found.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<span class="k">def</span> <span class="nf">shortentext</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">maxlen</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="n">maxlen</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;[...]&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">maxlen</span> <span class="k">else</span> <span class="n">text</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/pysourcesdk_fgd.png" alt="Logo"/>
+            </a></p>
+<h1 class="logo"><a href="../../index.html">ValveFGD</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quickstart</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api_ref.html">Api Reference</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Maxime Dupuis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.4.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
